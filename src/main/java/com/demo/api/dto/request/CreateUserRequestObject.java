@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUserRequest {
+public class CreateUserRequestObject {
     @SerializedName("email")
     private String email;
     @SerializedName("name")

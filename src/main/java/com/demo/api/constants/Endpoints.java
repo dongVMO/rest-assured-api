@@ -1,4 +1,4 @@
-package com.demo.api.apipath;
+package com.demo.api.constants;
 
 public class Endpoints {
 

@@ -1,23 +1,23 @@
 package com.demo.api.feature;
 
 import com.demo.api.core.BaseTest;
-import com.demo.api.dto.request.CreateUserRequest;
-import com.demo.api.services.ResgristerService;
+import com.demo.api.dto.request.CreateUserRequestObject;
+import com.demo.api.services.CreateUserService;
 import com.demo.api.utils.DataUtils;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static com.demo.api.apipath.Response.*;
+import static com.demo.api.constants.Response.*;
 
 public class DemoTest extends BaseTest {
 
-    ResgristerService resgristerService;
+    CreateUserService createUserService;
     String name, location, email;
     int id;
 
     @BeforeMethod
     public void setup() {
-        resgristerService = new ResgristerService();
+        createUserService = new CreateUserService();
         name = DataUtils.getData().getFirstName();
         location = DataUtils.getData().getLocation();
         email = DataUtils.getData().getEmail();
@@ -26,27 +26,28 @@ public class DemoTest extends BaseTest {
     @Test
     public void createUser() {
         // Create user
-        CreateUserRequest createUserRequest = new CreateUserRequest();
+        CreateUserRequestObject createUserRequest = new CreateUserRequestObject();
         createUserRequest.setEmail(email);
         createUserRequest.setName(name);
         createUserRequest.setLocation(location);
-        resgristerService.createUser(createUserRequest, token);
-        resgristerService.validateStatusCode(201)
+        createUserService.createUser(createUserRequest, token);
+        createUserService.validateStatusCode(201)
                 .verifyDataInResponse(NAME_RESPONSE, name)
                 .verifyDataInResponse(EMAIL_RESPONSE, email)
                 .verifyDataInResponse(LOCATION_RESPONSE, location);
 
         // Get user
-        id = resgristerService.getID();
-        resgristerService.getUserWithID(token, id);
-        resgristerService
+        id = createUserService.getID();
+        createUserService.getUserWithID(token, id);
+        createUserService
                 .validateStatusCode(200)
+                .verifyDataInResponse(ID_RESPONSE,id)
                 .verifyDataInResponse(NAME_RESPONSE, name)
                 .verifyDataInResponse(EMAIL_RESPONSE, email)
                 .verifyDataInResponse(LOCATION_RESPONSE, location);
 
         // Delete User
-        resgristerService.deleteUserWithID(token, id);
+        createUserService.deleteUserWithID(token, id);
 
     }
 }

@@ -1,4 +1,4 @@
-package com.demo.api.apipath;
+package com.demo.api.constants;
 
 public class Response {
     public static final String NAME_RESPONSE = "name" ;
