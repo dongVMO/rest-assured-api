@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
     <test name="Test">
+        <parameter name="chosenEnv" value="dev"/>
         <packages>
             <package name="com.demo.api.feature"/>
         </packages>

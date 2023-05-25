@@ -6,6 +6,7 @@ import com.typesafe.config.ConfigFactory;
 public class LoadConfig {
     public static final LoadConfig LOAD_CONFIG = getInstance();
     private final Config conf;
+    private static String envProject;
 
     private LoadConfig() {
         conf = ConfigFactory.load("application.conf");
@@ -16,8 +17,12 @@ public class LoadConfig {
     }
 
     public String getProperty(String key) {
-        // Default environment is defined in pom.xml
-        Config env = conf.getConfig("dev");
+        Config env = conf.getConfig(envProject);
         return env.getString(key);
+    }
+
+    public String getEnv(String chosenEnv) {
+        envProject = chosenEnv;
+        return envProject;
     }
 }
